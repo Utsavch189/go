@@ -1,0 +1,3 @@
+go run filename -> directly run the go file.
+go build filename -> build go code in .exe
+go mod init module_name -> The go.mod file is an essential part of a Go project that uses modules. It defines the module's properties, dependencies, and versioning. Introduced in Go 1.11, it helps manage dependencies in a structured way and replaces the older GOPATH approach.
