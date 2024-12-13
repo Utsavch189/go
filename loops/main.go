@@ -49,7 +49,7 @@ func main() {
 		fmt.Printf("Index: %d, Char: %c\n", index, char)
 	}
 
-	// Breaking and Continuing Loops
+	// Breaking and Continuing and Goto Loops
 	// 1.break
 	for i := 0; i < 10; i++ {
 		if i == 5 {
@@ -64,6 +64,33 @@ func main() {
 		}
 		fmt.Println(i)
 	}
+	// 3.goto
+	/*
+		goto is a statement in many programming languages, including Go, that allows for unconditional jumps
+		to a labeled part of the code. It interrupts the normal flow of execution and immediately transfers
+		control to the specified label.
+	*/
+	for i := 0; i < 10; i++ {
+		if i == 5 {
+			goto label1
+		}
+		fmt.Println(i)
+	}
+label1:
+	fmt.Println("Jump in label1")
+	/*
+		OUTPUT:
+			0
+			1
+			2
+			3
+			4
+			Jump in label1
+	*/
+	/*
+		1.goto can be dangerous: It can create unintuitive and error-prone logic. Use structured control flow (break, continue, or functions) instead.
+		2.Infinite loop in your case: The loop restarts endlessly because goto resets the state of the loop initialization.
+	*/
 
 	// Nested Loops [Loops can be nested, and you can use labels to break out of a specific loop.]
 	// EX-1:
