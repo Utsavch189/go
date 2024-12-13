@@ -1,0 +1,6 @@
+cd basic_api/
+go mod init github.com/Utsavch189/basic_api
+go get -u github.com/gorilla/mux
+go get github.com/google/uuid
+go run main.go
+go build .  --> FOR .txt
