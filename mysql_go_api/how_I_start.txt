@@ -1,0 +1,8 @@
+cd mysql_go_api/
+go mod init github.com/Utsavch189/api_mysql
+go get -u github.com/gorilla/mux
+go get github.com/google/uuid
+go get github.com/joho/godotenv
+go get -u github.com/go-sql-driver/mysql
+go get github.com/golang-jwt/jwt/v4
+go get golang.org/x/crypto/bcrypt
