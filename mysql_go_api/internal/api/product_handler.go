@@ -9,10 +9,14 @@ import (
 )
 
 func ProductHandler(r *mux.Router) {
-	r.Handle("/api/products", middlewares.Authorization(http.HandlerFunc(services.GetAllProducts))).
+	r.HandleFunc("/api/products", services.GetAllProducts).
 		Methods("GET")
-	r.HandleFunc("/api/product/{id}", services.GetAProduct).Methods("GET")
-	r.HandleFunc("/api/product", services.CreateProduct).Methods("POST")
-	r.HandleFunc("/api/product", services.UpdateAProduct).Methods("PUT")
-	r.HandleFunc("/api/product/{id}", services.DeleteAProduct).Methods("Delete")
+	r.HandleFunc("/api/product/{id}", services.GetAProduct).
+		Methods("GET")
+	r.Handle("/api/product", middlewares.Authorization(http.HandlerFunc(services.CreateProduct))).
+		Methods("POST")
+	r.Handle("/api/product", middlewares.Authorization(http.HandlerFunc(services.UpdateAProduct))).
+		Methods("PUT")
+	r.Handle("/api/product/{id}", middlewares.Authorization(http.HandlerFunc(services.DeleteAProduct))).
+		Methods("Delete")
 }

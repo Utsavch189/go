@@ -8,8 +8,8 @@ import (
 
 type Product struct {
 	Id          string    `json:"id"`
-	ProductName string    `json:"product_name"`
-	Price       float32   `json:"price"`
+	ProductName string    `json:"product_name" validate:"required,alphanum,min=3,max=20"`
+	Price       float32   `json:"price" validate:"required"`
 	CreatedAt   time.Time `json:"created_at"`
 	IsActive    bool      `json:"is_active"`
 }

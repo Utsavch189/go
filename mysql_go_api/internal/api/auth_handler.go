@@ -6,6 +6,8 @@ import (
 )
 
 func AuthHandler(r *mux.Router) {
-	r.HandleFunc("/api/auth/register", services.UserRegister).Methods("POST")
-	r.HandleFunc("/api/auth/login", services.UserLogin).Methods("POST")
+	r.HandleFunc("/api/auth/register", services.UserRegister).
+		Methods("POST")
+	r.HandleFunc("/api/auth/login", services.UserLogin).
+		Methods("POST")
 }

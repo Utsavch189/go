@@ -25,6 +25,11 @@ func UserRegister(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(responses.ErrorResponse(uerr, "user creation failed!"))
 		return
 	}
+	if err := utils.ValidateStruct(user); err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(responses.ErrorResponse(err, "user creation failed!", utils.FormatValidationError(err)))
+		return
+	}
 	createdUser, cerr := controller.Register(user)
 	if cerr != nil {
 		w.WriteHeader(http.StatusInternalServerError)
@@ -42,6 +47,11 @@ func UserLogin(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(w).Encode(responses.ErrorResponse(err, "login failed!"))
+		return
+	}
+	if err := utils.ValidateStruct(login); err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(responses.ErrorResponse(err, "login failed!", utils.FormatValidationError(err)))
 		return
 	}
 	user, uerr := controller.GetAUserByUsername(login.UserName)

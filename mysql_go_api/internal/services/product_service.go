@@ -8,6 +8,7 @@ import (
 	"github.com/Utsavch189/api_mysql/internal/controller"
 	"github.com/Utsavch189/api_mysql/internal/models/requests"
 	"github.com/Utsavch189/api_mysql/internal/models/responses"
+	"github.com/Utsavch189/api_mysql/internal/utils"
 	"github.com/gorilla/mux"
 )
 
@@ -47,6 +48,11 @@ func CreateProduct(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	product := requests.NewProduct(newProduct.ProductName, newProduct.Price)
+	if err := utils.ValidateStruct(product); err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(responses.ErrorResponse(err, "creation failed!", utils.FormatValidationError(err)))
+		return
+	}
 	createdProduct, cerr := controller.AddProduct(product)
 	if cerr != nil {
 		w.WriteHeader(http.StatusInternalServerError)
@@ -64,6 +70,11 @@ func UpdateAProduct(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(w).Encode(responses.ErrorResponse(err, "updation failed!"))
+		return
+	}
+	if err := utils.ValidateStruct(product); err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		json.NewEncoder(w).Encode(responses.ErrorResponse(err, "updation failed!", utils.FormatValidationError(err)))
 		return
 	}
 	updatedProduct, err := controller.UpdateProduct(&product)
